@@ -1,6 +1,5 @@
 package org.junjun.douban.bean;
 
-import java.util.List;
 
 public class DoubanSubject 
 {	

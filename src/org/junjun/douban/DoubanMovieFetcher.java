@@ -2,15 +2,12 @@ package org.junjun.douban;
 
 import java.io.IOException;
 import java.net.URL;
-import java.security.interfaces.DSAKey;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import javax.swing.JPopupMenu.Separator;
 
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;

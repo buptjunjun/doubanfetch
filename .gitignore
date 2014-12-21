@@ -1,3 +1,5 @@
 .classpath
+#doubanfetcher.jar
+/bin
 .settings/
 .project

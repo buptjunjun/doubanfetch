@@ -2,7 +2,7 @@
 	
 <!--project 用于定义一个ant工程，其中的三项name、default、basedir缺一不可。
 作用分别为：定义工程名、制定默认执行的任务、以及工程基础的路径型(它是计算其它路径的基础，一般情况下使用.即在java工程根目录即可)-->
-<project name="sayhellousejarant" default="compile" basedir=".">
+<project name="doubanfetcher" default="compile" basedir=".">
 	<!--描述，个人觉得就是一提示作用，没什么实际用途-->
 	<description>use jar test</description>
 	<!--定义源文件路径，其中的value换成location也行，使用value的时候，${src}得到的就是src这个值，如果使用location，得到的是src这个目录的绝对路径-->
@@ -48,6 +48,10 @@
 		-->
 		<mkdir dir="${classes}" />
 	</target>
+	
+	<copy todir="${classes}">
+	    <fileset dir="src/conf"/>
+	</copy>
 
 	<!--创建编译任务，名字是compile,depends指定了comiple任务依赖init任务-->
 	<target name="compile" depends="init" description="comile target">
@@ -60,13 +64,7 @@
 			<classpath>
 				<fileset dir="lib">
 					<include name="*.jar" />
-				</fileset>
-				<fileset dir="lib2">
-					<include name="*.jar" />
-				</fileset>
-				<fileset dir=".">
-					<include name="${androidjar}" />
-				</fileset>
+				</fileset>			
 			</classpath>
 		</javac>
 	</target>
@@ -78,7 +76,7 @@
 	<!--定义jarfilename，准备进行打包操作。其中ant.project.name是ant默认的一个变量，值为最上面定义的project的name
 	${DSTAMP}为日期，格式为20111123；${TSTAMP}为时间，格式为2256，表示22点56分。
 		-->
-	<property name="jarfilename" value="${ant.project.name}-${DSTAMP}${TSTAMP}.jar" />
+	<property name="jarfilename" value="${ant.project.name}.jar" />
 	<!--打包开始，名字为jar，依赖任务为compile-->
 	<target name="jar" depends="compile" description="make jar file">
 		<!--jar操作，jarfile指定jar包存放路径，basedir为编译后的class的目录-->
@@ -86,7 +84,7 @@
 			<!--为jar包指定manifest，当然，如果jar包不需要打成runnable的形式，manifest可以不要-->
 			<manifest>
 				<!--指定main-class-->
-				<attribute name="Main-Class" value="demo.SayHello" />
+				<attribute name="Main-Class" value="org.junjun.douban.DoubanMovieFetcher" />
 				<!--指定Class-Path-->
 				<attribute name="Class-Path" value="${libs}">
 				</attribute>
@@ -98,6 +96,6 @@
 	<target name="clean">
 		<!-- 可以以递归的方式删除目录 -->
 		<delete dir="${classes}" />
-		<delete dir="." includes="${ant.project.name}*.jar" />
+		
 	</target>
 </project>

@@ -24,6 +24,6 @@
  </environments>
  <mappers>
   <!--userMapper.xml装载进来 同等于把“dao”的实现装载进来 -->
-  <mapper resource="mybaits/mappers/DoubanSubjectMapper.xml" />
+  <mapper resource="conf/mybaits/mappers/DoubanSubjectMapper.xml" />
  </mappers>
 </configuration>
