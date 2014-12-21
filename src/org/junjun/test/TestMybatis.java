@@ -33,27 +33,29 @@ public class TestMybatis {
  }
  
  public static final void main(String[] args) {
-  SqlSession sqlSession = getSessionFactory().openSession();
-  DoubanSubjectMapper userMapper = sqlSession.getMapper(DoubanSubjectMapper.class);
-  
- 
-  // test select
-  DoubanSubject ds = userMapper.findById(333);
-  System.out.println(ds);
- 
-  // test insert
-  DoubanSubject ds1 = new DoubanSubject();
-  ds1.setId(12);
-  ds1.setFetchCount(11);
-  ds1.setType(2);
-  ds1.setAssociatedId("11,22,d33");
-  userMapper.updateoubanSubject(ds1); 
-  //it is a must or no data will be insert into server.
-  
-  List<DoubanSubject> dses = userMapper.findDoubanSubjectByFetchCount(0, 3);
-  
-  System.out.println(dses);
-  sqlSession.commit();
+//  SqlSession sqlSession = getSessionFactory().openSession();
+//  DoubanSubjectMapper userMapper = sqlSession.getMapper(DoubanSubjectMapper.class);
+//  
+// 
+//  // test select
+//  DoubanSubject ds = userMapper.findById(333);
+//  System.out.println(ds);
+// 
+//  // test insert
+//  DoubanSubject ds1 = new DoubanSubject();
+//  ds1.setId(12);
+//  ds1.setFetchCount(11);
+//  ds1.setType(2);
+//  ds1.setAssociatedId("11,22,d33");
+//  userMapper.updateoubanSubject(ds1); 
+//  //it is a must or no data will be insert into server.
+//  
+//  List<DoubanSubject> dses = userMapper.findDoubanSubjectByFetchCount(0, 3);
+//  
+//  System.out.println(dses);
+//  sqlSession.commit();
+	 
+	 
  
  }
 }
