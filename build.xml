@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+	
+<!--project 用于定义一个ant工程，其中的三项name、default、basedir缺一不可。
+作用分别为：定义工程名、制定默认执行的任务、以及工程基础的路径型(它是计算其它路径的基础，一般情况下使用.即在java工程根目录即可)-->
+<project name="sayhellousejarant" default="compile" basedir=".">
+	<!--描述，个人觉得就是一提示作用，没什么实际用途-->
+	<description>use jar test</description>
+	<!--定义源文件路径，其中的value换成location也行，使用value的时候，${src}得到的就是src这个值，如果使用location，得到的是src这个目录的绝对路径-->
+	<property name="src" value="src" />
+	<property name="classes" value="bin/classes" />
+
+	<!--构造打包时Class-Path需要的路径 -->
+	<!--pathconvert用于对目录进行组合 property即这个组合的名字，pathsep作用是各个文件之间的分隔符，
+		如果不写，在windows平台默认是分号。但时在MANIFEST.MF这个文件中，各个jar包之间要用空格区分，
+		因此。这里就写成空格了
+	-->
+	<pathconvert property="lib" pathsep=" ">
+		<!--mapper,对路径组合方式进行控制-->
+		<mapper>
+			<!--chainedmapper 作用是联合多个mapper-->
+			<chainedmapper>
+				<!--过滤文件，将路径去掉，只保留文件名-->
+				<flattenmapper />
+				<!--过滤+转换器，将所有的文件名前面都加上一个lib，我们知道lib目录下面有jar包，
+					lib/*的作用其实是将jar包名与路径进行组合形成如：lib/google.jar这样的相对路径
+				 -->
+				<globmapper from="*" to="lib/*" />
+			</chainedmapper>
+		</mapper>
+		<!--按照mapper定义的格式组合lib目录下面的所有jar文件，形成诸如lib/jar1.jar lib/jar2.jar的字符串-->
+		<fileset dir="lib">
+			<include name="*.jar" />
+		</fileset>
+	</pathconvert>
+
+	<!--组合各个路径，构成MANIFEST.MF文件中Class-Path所需的字符串-->
+	<property name="libs" value="${lib}" />
+
+	<!--打印一下刚才构造好的字符串，看看是否符合要求-->
+	<echo>libs   ${libs}</echo>
+
+	<!-- 构造打包时Class-Path需要的路径 结束-->
+
+	<!--创建任务init，负责初始化一些条件-->
+	<target name="init">
+		<!-- 创建存放编译后的class的目录
+			mkdir可以创建多级目录 
+		-->
+		<mkdir dir="${classes}" />
+	</target>
+
+	<!--创建编译任务，名字是compile,depends指定了comiple任务依赖init任务-->
+	<target name="compile" depends="init" description="comile target">
+		<!--javac，编译，对应java中的javac命令。
+		其中srcdir定义源文件路径 destdir定义编译后文件路径，
+		includeantruntime作用是指定编译任务是否包含ant的classpath,可有可无，不影响编译，
+		但不写可能会出现警告，为了眼不见心不烦，加上吧-->
+		<javac srcdir="${src}" destdir="${classes}" includeantruntime="true">
+			<!-- classpath 定义编译需要的claspath -->
+			<classpath>
+				<fileset dir="lib">
+					<include name="*.jar" />
+				</fileset>
+				<fileset dir="lib2">
+					<include name="*.jar" />
+				</fileset>
+				<fileset dir=".">
+					<include name="${androidjar}" />
+				</fileset>
+			</classpath>
+		</javac>
+	</target>
+
+
+	<!-- 创建时间戳 -->
+	<tstamp />
+
+	<!--定义jarfilename，准备进行打包操作。其中ant.project.name是ant默认的一个变量，值为最上面定义的project的name
+	${DSTAMP}为日期，格式为20111123；${TSTAMP}为时间，格式为2256，表示22点56分。
+		-->
+	<property name="jarfilename" value="${ant.project.name}-${DSTAMP}${TSTAMP}.jar" />
+	<!--打包开始，名字为jar，依赖任务为compile-->
+	<target name="jar" depends="compile" description="make jar file">
+		<!--jar操作，jarfile指定jar包存放路径，basedir为编译后的class的目录-->
+		<jar jarfile="${jarfilename}" basedir="${classes}">
+			<!--为jar包指定manifest，当然，如果jar包不需要打成runnable的形式，manifest可以不要-->
+			<manifest>
+				<!--指定main-class-->
+				<attribute name="Main-Class" value="demo.SayHello" />
+				<!--指定Class-Path-->
+				<attribute name="Class-Path" value="${libs}">
+				</attribute>
+			</manifest>
+		</jar>
+	</target>
+
+	<!-- 清理 -->
+	<target name="clean">
+		<!-- 可以以递归的方式删除目录 -->
+		<delete dir="${classes}" />
+		<delete dir="." includes="${ant.project.name}*.jar" />
+	</target>
+</project>
