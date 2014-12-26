@@ -1,19 +1,15 @@
 package org.junjun.douban;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
 import org.junjun.douban.bean.DoubanSubject;
 import org.junjun.douban.mapper.DoubanSubjectMapper;
 import org.junjun.douban.utils.HtmlUtls;

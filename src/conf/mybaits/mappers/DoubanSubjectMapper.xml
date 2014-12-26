@@ -35,6 +35,6 @@
     </update>
     
     <select id="findDoubanSubjectByFetchCount" parameterType="HashMap" resultType="DoubanSubject">
-  		select * from douban_subject where fetch_count&lt;=0  limit #{param2}
+  		select * from douban_subject where fetch_count=#{param1}  limit #{param2}
   </select>
 </mapper>
