@@ -4,3 +4,4 @@ create table douban_subject(
     fetch_count int(11) default 0,
     associated_id longtext 
 )
+alter table douban_subject add column json longtext; 

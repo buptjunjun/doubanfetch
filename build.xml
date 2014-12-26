@@ -77,6 +77,7 @@
 	${DSTAMP}为日期，格式为20111123；${TSTAMP}为时间，格式为2256，表示22点56分。
 		-->
 	<property name="jarfilename" value="${ant.project.name}.jar" />
+	<property name="jsonjarfilename" value="${ant.project.name}_json.jar" />
 	<!--打包开始，名字为jar，依赖任务为compile-->
 	<target name="jar" depends="compile" description="make jar file">
 		<!--jar操作，jarfile指定jar包存放路径，basedir为编译后的class的目录-->
@@ -89,6 +90,16 @@
 				<attribute name="Class-Path" value="${libs}">
 				</attribute>
 			</manifest>
+		</jar>
+		<jar jarfile="${jsonjarfilename}" basedir="${classes}">
+				<!--为jar包指定manifest，当然，如果jar包不需要打成runnable的形式，manifest可以不要-->
+				<manifest>
+					<!--指定main-class-->
+					<attribute name="Main-Class" value="org.junjun.douban.DoubanMovieJsonFetcher" />
+					<!--指定Class-Path-->
+					<attribute name="Class-Path" value="${libs}">
+					</attribute>
+				</manifest>
 		</jar>
 	</target>
 

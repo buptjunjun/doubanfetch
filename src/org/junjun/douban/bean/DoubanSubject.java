@@ -11,7 +11,7 @@ public class DoubanSubject
 	private long id;  //豆瓣一个物品的id
 	private int fetchCount = 0;//抓取次数
 	private String associatedId; //与之相关的id
-	
+	private String json="";
 	
 	
 	public int getType() {
@@ -41,7 +41,14 @@ public class DoubanSubject
 		this.associatedId = associatedId;
 	}	
 	
-    @Override
+	
+    public String getJson() {
+		return json;
+	}
+	public void setJson(String json) {
+		this.json = json;
+	}
+	@Override
     public String toString() {
     	// TODO Auto-generated method stub
     	return String.format("%d,%d,%d,%s", type,id,fetchCount,associatedId);

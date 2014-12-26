@@ -16,11 +16,12 @@
   </select>
    
    <insert id="insertDoubanSubject" parameterType="DoubanSubject" >
-     insert into douban_subject (id,type,fetch_count, associated_id) value
+     insert into douban_subject (id,type,json,fetch_count, associated_id) value
      (
        #{id,jdbcType=BIGINT} ,
        #{type,jdbcType=SMALLINT},
-       #{fetchCount,jdbcType=SMALLINT},
+        #{json,jdbcType=SMALLINT},
+       #{fetchCount,jdbcType=LONGVARCHAR},
        #{associatedId,jdbcType=LONGVARCHAR}
      )
     </insert>
@@ -28,7 +29,8 @@
     <update id="updateoubanSubject" parameterType="DoubanSubject" >
      update douban_subject set type=#{type,jdbcType=SMALLINT},
      						   fetch_count=#{fetchCount,jdbcType=SMALLINT}, 
-      						   associated_id=#{associatedId,jdbcType=LONGVARCHAR} 
+      						   associated_id=#{associatedId,jdbcType=LONGVARCHAR} ,
+      						   json=#{json,jdbcType=LONGVARCHAR} 
       						   where id= #{id,jdbcType=BIGINT}
     </update>
     

@@ -41,7 +41,7 @@ public class HtmlUtls {
 	
 	public static void main(String [] args) throws Exception
 	{
-		String html = getHtml("http://movie.douban.com/subject/6126442/?from=showing");
+		String html = getHtml("https://api.douban.com/v2/movie/subject/1298744");
 		System.out.println(html);
 	}
 
