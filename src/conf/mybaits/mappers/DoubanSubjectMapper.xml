@@ -3,15 +3,16 @@
     "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!--这块等于dao接口的实现 namespace必须和接口的类路径一样-->
-<mapper namespace="org.junjun.douban.mapper.DoubanSubjectMapper">
+  <mapper namespace="org.junjun.douban.mapper.DoubanSubjectMapper">
 	<resultMap type="DoubanSubject" id="DoubanSubjectResult">
 		<id column="id" property="id"/>
 		<result column="type" property="type"/>
 		<result column="fetch_count" property="fetchCount"/>
 		<result column="associated_id" property="associatedId"/>
 	</resultMap>
+	
  <!-- findByName 和  inserUser必须和接口中的方法名一样 返回一个User 就是刚才的别名 如果不弄别名要连类路径一起写-->
- <select id="findById" parameterType="HashMap" resultType="DoubanSubject">
+ <select id="findById" parameterType="HashMap" resultType="DoubanSubject" resultMap="DoubanSubjectResult">
   select * from douban_subject where id=#{id}
   </select>
    
@@ -34,7 +35,8 @@
       						   where id= #{id,jdbcType=BIGINT}
     </update>
     
-    <select id="findDoubanSubjectByFetchCount" parameterType="HashMap" resultType="DoubanSubject">
-  		select * from douban_subject where fetch_count=#{param1}  limit #{param2}
+    <select id="findDoubanSubjectByFetchCount"  parameterType="String" resultType="DoubanSubject" resultMap="DoubanSubjectResult">
+  		select * from douban_subject WHERE fetch_count=#{fetchCount}  limit ${limit}
   </select>
 </mapper>
+ 

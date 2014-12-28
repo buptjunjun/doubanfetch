@@ -34,7 +34,7 @@ public class DoubanMovieJsonFetcher
 		SqlSessionFactory fc = MybatisUtils.getSessionFactory();
 		SqlSession sqlSession = fc.openSession();
 		DoubanSubjectMapper dsMapper = sqlSession.getMapper(DoubanSubjectMapper.class);	
-		List<DoubanSubject> dses = dsMapper.findDoubanSubjectByFetchCount(1, 1);
+		List<DoubanSubject> dses = dsMapper.findDoubanSubjectByFetchCount(1, 10);
 		sqlSession.commit();
 		sqlSession.close();
 		
